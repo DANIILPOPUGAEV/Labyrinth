@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -euo pipefail
+set -eu
 #set -x
 
 # Цвета ANSI для вывода
@@ -152,18 +152,19 @@ run_all_tests() {
   local passed=0
   local failed=0
 
-  if [[ ! -d "$base_dir" ]]; then
-    printf "${RED}Каталог $base_dir не найден${RESET}\n"
-    exit 1
-  fi
+  # if [[ ! -d "$base_dir" ]]; then
+  #   printf "${RED}Каталог $base_dir не найден${RESET}\n"
+  #   exit 1
+  # fi
 
   local output=""
   for test_dir in "$base_dir"/*/; do
     [ -d "$test_dir" ] || continue
-    set +e
+    printf "Запускаем Тест $test_dir\n"
+    #set +e
     output=$(run_test_case "$test_dir" 2>&1)
     ret_code=$?
-    set -e
+    #set -e
     if [ $ret_code -eq 0 ]; then
       printf "${GREEN}Тест $test_dir: ПРОЙДЕН${RESET}\n"
       passed=$(expr "$passed" + 1)

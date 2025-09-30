@@ -21,4 +21,4 @@ show_variables:
       allow_failure: false
     - when: never
   script:
-    - sh tests/run.sh
+    - tests/run.sh tests/cases
