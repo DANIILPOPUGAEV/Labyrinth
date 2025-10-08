@@ -1,1 +1,1 @@
-dotnet run --project ./src/Labyrinths.csproj --help
+dotnet run --project ./src/Labyrinths.csproj -- --help
