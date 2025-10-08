@@ -67,10 +67,10 @@
 ### Примеры команд
 
 ```bash
-dotnet run --project ./src/Labyrinths.csproj generate --algorithm=dfs --width=10 --height=10 --output=maze1.txt
-dotnet run --project ./src/Labyrinths.csproj generate --algorithm=prim --width=10 --height=10 --output=maze2.txt
-dotnet run --project ./src/Labyrinths.csproj solve --algorithm=astar --file=maze1.txt --start=0,0 --end=9,9 --output=solution_maze1.txt
-dotnet run --project ./src/Labyrinths.csproj solve --algorithm=dijkstra --file=maze2.txt --start=0,0 --end=9,9 --output=solution_maze2.txt
+dotnet run --project ./src/Labyrinths.csproj -- generate --algorithm=dfs --width=10 --height=10 --output=maze1.txt
+dotnet run --project ./src/Labyrinths.csproj -- generate --algorithm=prim --width=10 --height=10 --output=maze2.txt
+dotnet run --project ./src/Labyrinths.csproj -- solve --algorithm=astar --file=maze1.txt --start=0,0 --end=9,9 --output=solution_maze1.txt
+dotnet run --project ./src/Labyrinths.csproj -- solve --algorithm=dijkstra --file=maze2.txt --start=0,0 --end=9,9 --output=solution_maze2.txt
 ```
 
 ### Формат файла с лабиринтом
