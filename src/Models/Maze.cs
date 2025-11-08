@@ -15,14 +15,13 @@ class Maze
         Width = width;
         Height = height;
         Grid = new CellType[Height, Width];
-
         for (int y = 0; y < Height; y++)
         {
             for (int x = 0; x < Width; x++)
             {
                 Grid[y, x] = CellType.Wall;
             }
-        }     
+        }
     }
 
     // Проверка, находится ли точка в пределах лабиринта
