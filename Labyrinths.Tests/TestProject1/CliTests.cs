@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using Labyrinths.CLI;
-using Xunit;
+﻿using Labyrinths.CLI;
 
 namespace Labyrinths.Tests;
 
