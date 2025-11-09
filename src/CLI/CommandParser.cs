@@ -35,6 +35,7 @@ public static class CommandParser
                     "f" => "file",
                     "s" => "start",
                     "e" => "end",
+                    "u" => "unicode",
                     _ => shortKey
                 };
 

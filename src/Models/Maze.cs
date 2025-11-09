@@ -33,28 +33,35 @@ public class Maze
     public void Set(Point p, CellType t) => Grid[p.Y, p.X] = t;
 
     // Отрисовка лабиринта в консоль
-    public void Draw()
+    public void Draw(bool useUnicode = false)
     {
-        var stringBuilder = new StringBuilder();
         for (int y = 0; y < Height; y++)
         {
             for (int x = 0; x < Width; x++)
             {
                 var cell = Grid[y, x];
-                char ch = cell switch
+                string c = useUnicode ? cell switch
                 {
-                    CellType.Wall => '#',
-                    CellType.Empty => ' ',
-                    CellType.Start => 'O',
-                    CellType.End => 'X',
-                    CellType.Path => '.',
-                    _ => ' '
+                    CellType.Wall => "█",
+                    CellType.Empty => " ",
+                    CellType.Path => "•",
+                    CellType.Start => "▲",
+                    CellType.End => "▼",
+                    _ => " "
+                } : cell switch
+                {
+                    CellType.Wall => "#",
+                    CellType.Empty => " ",
+                    CellType.Path => ".",
+                    CellType.Start => "O",
+                    CellType.End => "X",
+                    _ => " "
                 };
-                stringBuilder.Append(ch);
+
+                Console.Write(c);
             }
-            stringBuilder.AppendLine();
+            Console.WriteLine();
         }
-        Console.Write(stringBuilder.ToString());
     }
 
     // Сохранение лабиринта в файл

@@ -50,6 +50,7 @@ public static class CommandHandler
         var algorithm = opts["algorithm"].ToLowerInvariant();
         int width = int.Parse(opts["width"]);
         int height = int.Parse(opts["height"]);
+        bool useUnicode = opts.TryGetValue("unicode", out var u) && u.ToLower() == "true";
 
         IGenerator generator = algorithm switch
         {
@@ -67,7 +68,7 @@ public static class CommandHandler
         }
         else
         {
-            maze.Draw();
+            maze.Draw(useUnicode);
         }
     }
 
@@ -77,6 +78,7 @@ public static class CommandHandler
         var file = opts["file"];
         var start = Point.Parse(opts["start"]);
         var end = Point.Parse(opts["end"]);
+        bool useUnicode = opts.TryGetValue("unicode", out var u) && u.ToLower() == "true";
 
         var maze = Maze.LoadFromFile(file);
 
@@ -110,7 +112,7 @@ public static class CommandHandler
         }
         else
         {
-            maze.Draw();
+            maze.Draw(useUnicode);
         }
     }
 }
