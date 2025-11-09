@@ -3,7 +3,7 @@ using Labyrinths.Models;
 namespace Labyrinths.Generators;
 
 // Генератор лабиринта с использованием алгоритма DFS (Depth-First Search)
-class DfsGenerator : IGenerator
+public class DfsGenerator : IGenerator
 {
     private static readonly Random _rnd = new();
     private int width, height;

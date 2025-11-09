@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Labyrinths.Models;
 // Класс, представляющий лабиринт (в конструкторе инициализирует все клетки как стены)
-class Maze
+public class Maze
 {
     public int Width { get; }
     public int Height { get; }

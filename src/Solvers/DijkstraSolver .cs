@@ -2,7 +2,7 @@
 using Labyrinths.Models;
 
 namespace Labyrinths.Solvers;
-class DijkstraSolver : ISolver
+public class DijkstraSolver : ISolver
 {
     public List<Point>? Solve(Maze maze, Point start, Point end)
     {

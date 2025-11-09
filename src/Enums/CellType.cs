@@ -1,7 +1,7 @@
 ﻿namespace Labyrinths.Enums;
 
 // Перечисление типов для ячеек лабиринта
-enum CellType
+public enum CellType
 {
     Wall,
     Empty,

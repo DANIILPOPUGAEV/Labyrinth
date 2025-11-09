@@ -66,7 +66,7 @@ public static class CommandHandler
 
         ISolver solver = algorithm switch
         {
-            //"astar" => new AStarSolver(),
+            "astar" => new AStarSolver(),
             "dijkstra" => new DijkstraSolver(),
             _ => throw new ArgumentException("Unknown algorithm")
         };

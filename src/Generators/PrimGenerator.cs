@@ -2,7 +2,7 @@
 using Labyrinths.Models;
 
 namespace Labyrinths.Generators;
-class PrimGenerator : IGenerator
+public class PrimGenerator : IGenerator
 {
     private static readonly Random _rnd = new();
     public Maze Generate(int width, int height)

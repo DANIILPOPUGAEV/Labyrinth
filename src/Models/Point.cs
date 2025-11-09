@@ -1,7 +1,7 @@
 ﻿namespace Labyrinths.Models;
 
 // Запись для представления точки в лабиринте
-record Point(int X, int Y)
+public record Point(int X, int Y)
 {
     public static Point Parse(string s)
     {
