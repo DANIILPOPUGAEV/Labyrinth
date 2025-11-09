@@ -108,6 +108,18 @@ public class Maze
     /// <param name="path">Путь к файлу для сохранения.</param>
     public void SaveToFile(string path)
     {
+        // Если путь начинается с '/', превращаем его в относительный
+        if (Path.IsPathRooted(path) && path.StartsWith("/"))
+        {
+            path = Path.Combine(Directory.GetCurrentDirectory(), path.TrimStart('/'));
+        }
+
+        // Создаём директорию, если её нет
+        var directory = Path.GetDirectoryName(path);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
         var lines = new List<string>();
         for (int y = 0; y < Height; y++)
         {
@@ -138,6 +150,16 @@ public class Maze
     /// <returns>Новый экземпляр лабиринта, загруженный из файла.</returns>
     public static Maze LoadFromFile(string path)
     {
+        // Если путь начинается с '/', превращаем его в относительный
+        if (Path.IsPathRooted(path) && path.StartsWith("/"))
+        {
+            path = Path.Combine(Directory.GetCurrentDirectory(), path.TrimStart('/'));
+        }
+
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Maze file not found: {path}");
+        }
         var lines = File.ReadAllLines(path);
         int height = lines.Length;
         int width = lines.Max(l => l.Length);
