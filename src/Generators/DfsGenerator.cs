@@ -14,7 +14,7 @@ class DfsGenerator : IGenerator
         this.width = Math.Max(3, width | 1);
         this.height = Math.Max(3, height | 1);
         _maze = new Maze(this.width, this.height);
-        
+
         VisitAll();
         return _maze;
     }
