@@ -41,7 +41,7 @@ public static class CommandHandler
         IGenerator generator = algorithm switch
         {
             "dfs" => new DfsGenerator(),
-            //"prim" => new PrimGenerator(),
+            "prim" => new PrimGenerator(),
             _ => throw new ArgumentException("Unknown algorithm")
         };
 
