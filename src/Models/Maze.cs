@@ -2,13 +2,35 @@
 using System.Text;
 
 namespace Labyrinths.Models;
-// Класс, представляющий лабиринт (в конструкторе инициализирует все клетки как стены)
+
+/// <summary>
+/// Представляет лабиринт, состоящий из клеток различных типов.
+/// Лабиринт инициализируется как полностью состоящий из стен, после чего может быть модифицирован.
+/// </summary>
 public class Maze
 {
+    /// <summary>
+    /// Ширина лабиринта в клетках.
+    /// </summary>
     public int Width { get; }
+
+    /// <summary>
+    /// Высота лабиринта в клетках.
+    /// </summary>
     public int Height { get; }
+
+    /// <summary>
+    /// Двумерный массив, представляющий сетку лабиринта.
+    /// Индексы: [y, x], где y - строка, x - столбец.
+    /// </summary>
     public CellType[,] Grid { get; }
 
+    // <summary>
+    /// Инициализирует новый экземпляр лабиринта указанных размеров.
+    /// Все клетки инициализируются как стены.
+    /// </summary>
+    /// <param name="width">Ширина лабиринта (должна быть положительной).</param>
+    /// <param name="height">Высота лабиринта (должна быть положительной).</param>
     public Maze(int width, int height)
     {
         Width = width;
@@ -23,16 +45,31 @@ public class Maze
         }
     }
 
-    // Проверка, находится ли точка в пределах лабиринта
+    /// <summary>
+    /// Проверяет, находится ли указанная точка в пределах границ лабиринта.
+    /// </summary>
+    /// <param name="p">Точка для проверки.</param>
+    /// <returns>true, если точка находится в пределах лабиринта; иначе false.</returns>
     public bool InBounds(Point p) => p.X >= 0 && p.X < Width && p.Y >= 0 && p.Y < Height;
 
-    // Получение типа клетки по координатам точки
+    /// <summary>
+    /// Получает тип клетки в указанной точке.
+    /// </summary>
+    /// <param name="p">Точка для получения типа клетки.</param>
+    /// <returns>Тип клетки в указанной точке.</returns>
     public CellType Get(Point p) => Grid[p.Y, p.X];
 
-    // Установка типа клетки по координатам точки
+    /// <summary>
+    /// Устанавливает тип клетки в указанной точке.
+    /// </summary>
+    /// <param name="p">Точка для установки типа клетки.</param>
+    /// <param name="t">Новый тип клетки.</param>
     public void Set(Point p, CellType t) => Grid[p.Y, p.X] = t;
 
-    // Отрисовка лабиринта в консоль
+    /// <summary>
+    /// Отрисовывает лабиринт в консоли с использованием ASCII или Unicode символов.
+    /// </summary>
+    /// <param name="useUnicode">Если true, используются Unicode символы для отрисовки; иначе ASCII символы.</param>
     public void Draw(bool useUnicode = false)
     {
         for (int y = 0; y < Height; y++)
@@ -64,7 +101,11 @@ public class Maze
         }
     }
 
-    // Сохранение лабиринта в файл
+    /// <summary>
+    /// Сохраняет лабиринт в текстовый файл.
+    /// Каждая строка файла представляет строку лабиринта, символы кодируют типы клеток.
+    /// </summary>
+    /// <param name="path">Путь к файлу для сохранения.</param>
     public void SaveToFile(string path)
     {
         var lines = new List<string>();
@@ -90,7 +131,11 @@ public class Maze
         File.WriteAllLines(path, lines);
     }
 
-    // Загрузка лабиринта из файла
+    /// <summary>
+    /// Загружает лабиринт из текстового файла.
+    /// </summary>
+    /// <param name="path">Путь к файлу для загрузки.</param>
+    /// <returns>Новый экземпляр лабиринта, загруженный из файла.</returns>
     public static Maze LoadFromFile(string path)
     {
         var lines = File.ReadAllLines(path);

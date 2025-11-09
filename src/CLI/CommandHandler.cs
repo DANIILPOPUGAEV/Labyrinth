@@ -56,6 +56,7 @@ public static class CommandHandler
         {
             "dfs" => new DfsGenerator(),
             "prim" => new PrimGenerator(),
+            "random" => new RandomGenerator(),
             _ => throw new ArgumentException("Unknown algorithm")
         };
 
@@ -86,6 +87,7 @@ public static class CommandHandler
         {
             "astar" => new AStarSolver(),
             "dijkstra" => new DijkstraSolver(),
+            "bfs" => new BfsSolver(),
             _ => throw new ArgumentException("Unknown algorithm")
         };
 
