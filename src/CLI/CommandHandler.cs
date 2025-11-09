@@ -91,8 +91,31 @@ public static class CommandHandler
     {
         var algorithm = opts["algorithm"].ToLowerInvariant();
         var file = opts["file"];
-        var start = Point.Parse(opts["start"]);
-        var end = Point.Parse(opts["end"]);
+
+        Point start, end;
+
+        try
+        {
+            start = Point.Parse(opts["start"]);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine($"Invalid point format: {opts["start"]}, expected format: x,y");
+            Environment.Exit(1);
+            return;
+        }
+
+        try
+        {
+            end = Point.Parse(opts["end"]);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine($"Invalid point format: {opts["end"]}, expected format: x,y");
+            Environment.Exit(1);
+            return;
+        }
+
         bool useUnicode = opts.TryGetValue("unicode", out var u) && u.ToLower() == "true";
 
         var maze = Maze.LoadFromFile(file);
