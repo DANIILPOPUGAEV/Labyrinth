@@ -1,7 +1,25 @@
-﻿
-namespace Labyrinths.CLI;
+﻿namespace Labyrinths.CLI;
+
+/// <summary>
+/// Парсер аргументов командной строки.
+/// Преобразует аргументы в словарь ключ-значение, поддерживая различные форматы параметров.
+/// </summary>
 public static class CommandParser
 {
+    /// <summary>
+    /// Парсит массив аргументов командной строки в словарь опций.
+    /// </summary>
+    /// <param name="args">Аргументы командной строки</param>
+    /// <returns>Словарь опций, где ключ - название параметра, значение - значение параметра</returns>
+    /// <remarks>
+    /// Поддерживаемые форматы:
+    /// --name=value
+    /// --name value
+    /// --name (значение по умолчанию "true")
+    /// -n=value
+    /// -n value
+    /// -n (значение по умолчанию "true")
+    /// </remarks>
     public static Dictionary<string, string> Parse(string[] args)
     {
         var options = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -10,7 +28,6 @@ public static class CommandParser
         {
             var arg = args[i];
 
-            // Длинная форма --key=value или --key value
             if (arg.StartsWith("--"))
             {
                 var parts = arg[2..].Split('=', 2);
@@ -22,7 +39,6 @@ public static class CommandParser
                 continue;
             }
 
-            // Короткая форма -k=value или -k value
             if (arg.StartsWith("-") && arg.Length >= 2)
             {
                 string shortKey = arg[1].ToString();
@@ -42,20 +58,20 @@ public static class CommandParser
                 string value = null!;
                 if (arg.Length > 2)
                 {
-                    if (arg[2] == '=') // -a=dfs
+                    if (arg[2] == '=')
                     {
                         value = arg[3..];
                     }
-                    else // случай вроде -w21
+                    else
                     {
                         value = arg[2..];
                     }
                 }
-                else if (i + 1 < args.Length && !args[i + 1].StartsWith("-")) // -a dfs
+                else if (i + 1 < args.Length && !args[i + 1].StartsWith("-"))
                 {
                     value = args[++i];
                 }
-                else // флаг без значения
+                else
                 {
                     value = "true";
                 }

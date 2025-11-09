@@ -14,9 +14,7 @@ public record Point(int X, int Y)
     /// <param name="s">Строка для парсинга в формате "x,y"</param>
     /// <returns>Новый экземпляр Point с указанными координатами</returns>
     /// <exception cref="FormatException">Выбрасывается если строка имеет неверный формат</exception>
-    /// <example>
-    /// var point = Point.Parse("3,5"); // X=3, Y=5
-    /// </example>
+
     public static Point Parse(string s)
     {
         var parts = s.Split(',');

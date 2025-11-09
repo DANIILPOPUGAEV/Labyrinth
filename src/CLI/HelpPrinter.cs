@@ -1,6 +1,15 @@
 ﻿namespace Labyrinths.CLI;
+
+/// <summary>
+/// Выводит справочную информацию по использованию CLI приложения.
+/// Предоставляет информацию о доступных командах и опциях.
+/// </summary>
 public static class HelpPrinter
 {
+    /// <summary>
+    /// Отображает основную справочную информацию о приложении.
+    /// Включает общее описание, опции и доступные команды.
+    /// </summary>
     public static void Show()
     {
         Console.WriteLine("Usage: maze-app [-hV] [COMMAND]");

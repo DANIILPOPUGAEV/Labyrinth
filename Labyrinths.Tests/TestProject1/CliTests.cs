@@ -7,6 +7,7 @@ namespace Labyrinths.Tests;
 
 public class CliTests
 {
+    // Вспомогательный метод для захвата вывода в консоль
     private string RunWithCapture(Action action)
     {
         using var sw = new StringWriter();
@@ -20,13 +21,12 @@ public class CliTests
     [Fact]
     public void HelpCommand_ShowsUsage()
     {
-        // Act
+        // Тест проверяет, что команда --help выводит справочную информацию
         var output = RunWithCapture(() =>
         {
             CommandHandler.Handle(new[] { "--help" });
         });
 
-        // Assert
         Assert.Contains("Usage", output, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("generate", output, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("solve", output, StringComparison.OrdinalIgnoreCase);
@@ -35,7 +35,7 @@ public class CliTests
     [Fact]
     public void GenerateCommand_CreatesMaze()
     {
-        // Arrange
+        // Тест проверяет генерацию лабиринта и сохранение в файл
         var outputFile = Path.Combine(Path.GetTempPath(), "maze_test.txt");
         if (File.Exists(outputFile)) { File.Delete(outputFile); }
 
@@ -48,10 +48,8 @@ public class CliTests
             $"--output={outputFile}"
         };
 
-        // Act
         var output = RunWithCapture(() => CommandHandler.Handle(args));
 
-        // Assert
         Assert.True(File.Exists(outputFile), "Файл лабиринта должен быть создан");
         Assert.Contains("Maze saved", output, StringComparison.OrdinalIgnoreCase);
 
@@ -65,11 +63,10 @@ public class CliTests
     [Fact]
     public void SolveCommand_FindsPath_AndSavesResult()
     {
-        // Arrange
+        // Тест проверяет решение лабиринта и сохранение результата с путем
         var mazeFile = Path.Combine(Path.GetTempPath(), "maze_input.txt");
         var resultFile = Path.Combine(Path.GetTempPath(), "maze_solved.txt");
 
-        // Простой лабиринт 7x7 с открытым проходом
         string mazeText = """
         #######
         #     #
@@ -92,21 +89,19 @@ public class CliTests
             $"--output={resultFile}"
         };
 
-        // Act
         var output = RunWithCapture(() => CommandHandler.Handle(args));
 
-        // Assert
         Assert.True(File.Exists(resultFile), "Файл решения должен быть создан");
         Assert.Contains("Solution saved", output, StringComparison.OrdinalIgnoreCase);
 
         var solved = File.ReadAllText(resultFile);
-        Assert.Contains(".", solved); // путь должен содержать точки
+        Assert.Contains(".", solved);
     }
 
     [Fact]
     public void SolveCommand_PrintsPath_WhenNoOutputFile()
     {
-        // Arrange
+        // Тест проверяет вывод решения в консоль при отсутствии файла вывода
         string mazeText = """
         #######
         #     #
@@ -129,17 +124,15 @@ public class CliTests
             "--end=5,5"
         };
 
-        // Act
         var output = RunWithCapture(() => CommandHandler.Handle(args));
 
-        // Assert
-        Assert.Contains(".", output); // путь должен быть нарисован в консоли
+        Assert.Contains(".", output);
     }
 
     [Fact]
     public void SolveCommand_ReturnsMessage_WhenNoPath()
     {
-        // Arrange
+        // Тест проверяет обработку случая, когда путь невозможен
         string mazeText = """
         #######
         #     #
@@ -160,10 +153,8 @@ public class CliTests
             "--end=5,3"
         };
 
-        // Act
         var output = RunWithCapture(() => CommandHandler.Handle(args));
 
-        // Assert
         Assert.Contains("Path not found", output);
     }
 }

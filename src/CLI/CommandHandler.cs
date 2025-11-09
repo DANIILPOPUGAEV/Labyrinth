@@ -5,20 +5,26 @@ using Labyrinths.Solvers;
 
 namespace Labyrinths.CLI;
 
+/// <summary>
+/// Обработчик команд CLI для генерации и решения лабиринтов.
+/// Предоставляет точку входа для работы с приложением через командную строку.
+/// </summary>
 public static class CommandHandler
 {
     private const string Version = "1.0.0";
 
+    /// <summary>
+    /// Обрабатывает аргументы командной строки и выполняет соответствующие действия.
+    /// </summary>
+    /// <param name="args">Аргументы командной строки</param>
     public static void Handle(string[] args)
     {
-        // Показываем помощь, если нет аргументов или указан флаг -h / --help
         if (args.Length == 0 || args.Contains("-H") || args.Contains("--help"))
         {
             HelpPrinter.Show();
             return;
         }
 
-        // Показываем версию, если указан флаг -V / --version
         if (args.Contains("-V") || args.Contains("--version"))
         {
             Console.WriteLine($"maze-app version {Version}");
@@ -45,6 +51,10 @@ public static class CommandHandler
         }
     }
 
+    /// <summary>
+    /// Обрабатывает команду генерации лабиринта.
+    /// </summary>
+    /// <param name="opts">Опции команды</param>
     private static void HandleGenerate(Dictionary<string, string> opts)
     {
         var algorithm = opts["algorithm"].ToLowerInvariant();
@@ -73,6 +83,10 @@ public static class CommandHandler
         }
     }
 
+    /// <summary>
+    /// Обрабатывает команду решения лабиринта.
+    /// </summary>
+    /// <param name="opts">Опции команды</param>
     private static void HandleSolve(Dictionary<string, string> opts)
     {
         var algorithm = opts["algorithm"].ToLowerInvariant();
