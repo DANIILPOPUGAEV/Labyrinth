@@ -94,6 +94,7 @@ public static class CommandHandler
 
         Point start, end;
 
+        // Парсинг стартовой точки с обработкой ошибок формата
         try
         {
             start = Point.Parse(opts["start"]);
@@ -105,6 +106,7 @@ public static class CommandHandler
             return;
         }
 
+        // Парсинг конечной точки с обработкой ошибок формата
         try
         {
             end = Point.Parse(opts["end"]);
