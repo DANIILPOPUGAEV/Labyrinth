@@ -9,3 +9,4 @@ public record Point(int X, int Y)
         return parts.Length != 2 ? throw new FormatException("Expect format x,y") : new Point(int.Parse(parts[0]), int.Parse(parts[1]));
     }
 }
+

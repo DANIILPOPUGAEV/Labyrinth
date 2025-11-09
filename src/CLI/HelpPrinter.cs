@@ -3,14 +3,15 @@ public static class HelpPrinter
 {
     public static void Show()
     {
-        Console.WriteLine("Maze Generator & Solver CLI");
+        Console.WriteLine("Usage: maze-app [-hV] [COMMAND]");
+        Console.WriteLine("Maze generator and solver CLI application.");
         Console.WriteLine();
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  generate --algorithm=[dfs|prim] --width=<w> --height=<h> [--output=file]");
-        Console.WriteLine("  solve --algorithm=[astar|dijkstra] --file=maze.txt --start=x,y --end=x,y [--output=file]");
+        Console.WriteLine("Options:");
+        Console.WriteLine("  -h, --help      Show this help message and exit.");
+        Console.WriteLine("  -V, --version   Print version information and exit.");
         Console.WriteLine();
-        Console.WriteLine("Example:");
-        Console.WriteLine("  MazeApp generate --algorithm=dfs --width=20 --height=10 --output=maze.txt");
-        Console.WriteLine("  MazeApp solve --algorithm=astar --file=maze.txt --start=1,1 --end=18,8");
+        Console.WriteLine("Commands:");
+        Console.WriteLine("  generate        Generate a maze with specified algorithm and dimensions.");
+        Console.WriteLine("  solve           Solve a maze with specified algorithm and points.");
     }
 }

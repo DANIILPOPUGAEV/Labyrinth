@@ -7,11 +7,21 @@ namespace Labyrinths.CLI;
 
 public static class CommandHandler
 {
+    private const string Version = "1.0.0";
+
     public static void Handle(string[] args)
     {
-        if (args.Length == 0 || args.Contains("--help"))
+        // Показываем помощь, если нет аргументов или указан флаг -h / --help
+        if (args.Length == 0 || args.Contains("-H") || args.Contains("--help"))
         {
             HelpPrinter.Show();
+            return;
+        }
+
+        // Показываем версию, если указан флаг -V / --version
+        if (args.Contains("-V") || args.Contains("--version"))
+        {
+            Console.WriteLine($"maze-app version {Version}");
             return;
         }
 
@@ -23,11 +33,14 @@ public static class CommandHandler
             case "generate":
                 HandleGenerate(opts);
                 break;
+
             case "solve":
                 HandleSolve(opts);
                 break;
+
             default:
-                HelpPrinter.Show();
+                Console.WriteLine($"Unknown command: {cmd}");
+                Console.WriteLine("Use -h or --help for usage information.");
                 break;
         }
     }
@@ -52,7 +65,10 @@ public static class CommandHandler
             maze.SaveToFile(output);
             Console.WriteLine($"Maze saved to {output}");
         }
-        else { maze.Draw(); }
+        else
+        {
+            maze.Draw();
+        }
     }
 
     private static void HandleSolve(Dictionary<string, string> opts)
@@ -92,6 +108,9 @@ public static class CommandHandler
             maze.SaveToFile(output);
             Console.WriteLine($"Solution saved to {output}");
         }
-        else { maze.Draw(); }
+        else
+        {
+            maze.Draw();
+        }
     }
 }
