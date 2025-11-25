@@ -5,164 +5,98 @@ namespace Labyrinths.Models;
 
 /// <summary>
 /// Представляет лабиринт, состоящий из клеток различных типов.
-/// Лабиринт инициализируется как полностью состоящий из стен, после чего может быть модифицирован.
 /// </summary>
 public class Maze
 {
-    /// <summary>
-    /// Ширина лабиринта в клетках.
-    /// </summary>
+    /// <summary>Ширина лабиринта в клетках.</summary>
     public int Width { get; }
 
-    /// <summary>
-    /// Высота лабиринта в клетках.
-    /// </summary>
+    /// <summary>Высота лабиринта в клетках.</summary>
     public int Height { get; }
 
-    /// <summary>
-    /// Двумерный массив, представляющий сетку лабиринта.
-    /// Индексы: [y, x], где y - строка, x - столбец.
-    /// </summary>
+    /// <summary>Двумерный массив, представляющий сетку лабиринта. Индексы: [y, x].</summary>
     public CellType[,] Grid { get; }
 
-    // <summary>
+    /// <summary>
     /// Инициализирует новый экземпляр лабиринта указанных размеров.
     /// Все клетки инициализируются как стены.
     /// </summary>
-    /// <param name="width">Ширина лабиринта (должна быть положительной).</param>
-    /// <param name="height">Высота лабиринта (должна быть положительной).</param>
+    /// <param name="width">Ширина лабиринта (должна быть положительной)</param>
+    /// <param name="height">Высота лабиринта (должна быть положительной)</param>
     public Maze(int width, int height)
     {
         Width = width;
         Height = height;
-        Grid = new CellType[Height, Width];
-        for (int y = 0; y < Height; y++)
+        Grid = new CellType[height, width];
+
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < Width; x++)
+            for (int x = 0; x < width; x++)
             {
                 Grid[y, x] = CellType.Wall;
             }
         }
     }
 
-    /// <summary>
-    /// Проверяет, находится ли указанная точка в пределах границ лабиринта.
-    /// </summary>
-    /// <param name="p">Точка для проверки.</param>
-    /// <returns>true, если точка находится в пределах лабиринта; иначе false.</returns>
+    /// <summary>Проверяет, находится ли указанная точка в пределах границ лабиринта.</summary>
     public bool InBounds(Point p) => p.X >= 0 && p.X < Width && p.Y >= 0 && p.Y < Height;
 
-    /// <summary>
-    /// Получает тип клетки в указанной точке.
-    /// </summary>
-    /// <param name="p">Точка для получения типа клетки.</param>
-    /// <returns>Тип клетки в указанной точке.</returns>
+    /// <summary>Получает тип клетки в указанной точке.</summary>
     public CellType Get(Point p) => Grid[p.Y, p.X];
 
-    /// <summary>
-    /// Устанавливает тип клетки в указанной точке.
-    /// </summary>
-    /// <param name="p">Точка для установки типа клетки.</param>
-    /// <param name="t">Новый тип клетки.</param>
+    /// <summary>Устанавливает тип клетки в указанной точке.</summary>
     public void Set(Point p, CellType t) => Grid[p.Y, p.X] = t;
 
-    /// <summary>
-    /// Отрисовывает лабиринт в консоли с использованием ASCII или Unicode символов.
-    /// </summary>
-    /// <param name="useUnicode">Если true, используются Unicode символы для отрисовки; иначе ASCII символы.</param>
-    public void Draw(bool useUnicode = false)
+    /// <summary>Создаёт текстовое представление лабиринта.</summary>
+    public List<string> Render(bool unicode)
     {
-        for (int y = 0; y < Height; y++)
-        {
-            for (int x = 0; x < Width; x++)
-            {
-                var cell = Grid[y, x];
-                string c = useUnicode ? cell switch
-                {
-                    CellType.Wall => "█",
-                    CellType.Empty => " ",
-                    CellType.Path => "•",
-                    CellType.Start => "▲",
-                    CellType.End => "▼",
-                    _ => " "
-                } : cell switch
-                {
-                    CellType.Wall => "#",
-                    CellType.Empty => " ",
-                    CellType.Path => ".",
-                    CellType.Start => "O",
-                    CellType.End => "X",
-                    _ => " "
-                };
-
-                Console.Write(c);
-            }
-            Console.WriteLine();
-        }
-    }
-
-    /// <summary>
-    /// Сохраняет лабиринт в текстовый файл.
-    /// Каждая строка файла представляет строку лабиринта, символы кодируют типы клеток.
-    /// </summary>
-    /// <param name="path">Путь к файлу для сохранения.</param>
-    public void SaveToFile(string path)
-    {
-        // Если путь начинается с '/', превращаем его в относительный
-        if (Path.IsPathRooted(path) && path.StartsWith("/"))
-        {
-            path = Path.Combine(Directory.GetCurrentDirectory(), path.TrimStart('/'));
-        }
-
-        // Создаём директорию, если её нет
-        var directory = Path.GetDirectoryName(path);
-        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
         var lines = new List<string>();
         for (int y = 0; y < Height; y++)
         {
             var sb = new StringBuilder();
             for (int x = 0; x < Width; x++)
             {
-                var c = Grid[y, x];
-                char ch = c switch
-                {
-                    CellType.Wall => '#',
-                    CellType.Empty => ' ',
-                    CellType.Start => 'O',
-                    CellType.End => 'X',
-                    CellType.Path => '.',
-                    _ => ' '
-                };
-                sb.Append(ch);
+                sb.Append(Grid[y, x].ToChar(unicode));
             }
+
             lines.Add(sb.ToString());
         }
-        File.WriteAllLines(path, lines);
+        return lines;
     }
 
-    /// <summary>
-    /// Загружает лабиринт из текстового файла.
-    /// </summary>
-    /// <param name="path">Путь к файлу для загрузки.</param>
-    /// <returns>Новый экземпляр лабиринта, загруженный из файла.</returns>
+    ///<summary>Рисует лабиринт в консоль.</summary>
+    public void Draw(bool unicode = false)
+    {
+        foreach (var line in Render(unicode))
+        {
+            Console.WriteLine(line);
+        }
+    }
+
+    ///<summary>Сохраняет лабиринт в текстовый файл.</summary>
+
+    public void SaveToFile(string path, bool unicode = false)
+    {
+        path = NormalizePath(path);
+        EnsureDirectoryExists(path);
+
+        File.WriteAllLines(path, Render(unicode), Encoding.UTF8);
+    }
+
+    /// <summary>Загружает лабиринт из текстового файла.</summary>
     public static Maze LoadFromFile(string path)
     {
-        // Если путь начинается с '/', превращаем его в относительный
-        if (Path.IsPathRooted(path) && path.StartsWith("/"))
-        {
-            path = Path.Combine(Directory.GetCurrentDirectory(), path.TrimStart('/'));
-        }
+        path = NormalizePath(path);
 
         if (!File.Exists(path))
         {
             throw new FileNotFoundException($"Maze file not found: {path}");
         }
-        var lines = File.ReadAllLines(path);
+
+        var lines = File.ReadAllLines(path, Encoding.UTF8);
         int height = lines.Length;
         int width = lines.Max(l => l.Length);
+
         var maze = new Maze(width, height);
 
         for (int y = 0; y < height; y++)
@@ -170,18 +104,32 @@ public class Maze
             var line = lines[y].PadRight(width);
             for (int x = 0; x < width; x++)
             {
-                char ch = line[x];
-                maze.Grid[y, x] = ch switch
-                {
-                    '#' => CellType.Wall,
-                    'O' => CellType.Start,
-                    'X' => CellType.End,
-                    '.' => CellType.Path,
-                    ' ' => CellType.Empty,
-                    _ => CellType.Empty
-                };
+                string symbol = line.Substring(x, 1);
+                maze.Grid[y, x] = CellTypeExtensions.FromChar(symbol);
             }
         }
+
         return maze;
+    }
+
+    /// <summary>Нормализует путь к файлу, обрабатывая относительные пути.</summary>
+    private static string NormalizePath(string path)
+    {
+        if (Path.IsPathRooted(path) && path.StartsWith("/"))
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), path.TrimStart('/'));
+        }
+
+        return path;
+    }
+
+    /// <summary>Обеспечивает существование директории для указанного файлового пути.</summary>
+    private static void EnsureDirectoryExists(string path)
+    {
+        var dir = Path.GetDirectoryName(path);
+        if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
     }
 }

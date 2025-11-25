@@ -74,8 +74,7 @@ public static class CommandHandler
 
         if (opts.TryGetValue("output", out var output))
         {
-            maze.SaveToFile(output);
-            //Console.WriteLine($"Maze saved to {output}");
+            maze.SaveToFile(output, useUnicode);
         }
         else
         {
@@ -148,8 +147,7 @@ public static class CommandHandler
 
         if (opts.TryGetValue("output", out var output))
         {
-            maze.SaveToFile(output);
-            //Console.WriteLine($"Solution saved to {output}");
+            maze.SaveToFile(output, useUnicode);
         }
         else
         {

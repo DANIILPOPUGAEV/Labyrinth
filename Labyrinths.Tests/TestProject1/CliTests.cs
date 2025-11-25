@@ -34,21 +34,23 @@ public class CliTests
     {
         // Тест проверяет генерацию лабиринта и сохранение в файл
         var outputFile = Path.Combine(Path.GetTempPath(), "maze_test.txt");
-        if (File.Exists(outputFile)) { File.Delete(outputFile); }
+        if (File.Exists(outputFile))
+        {
+            File.Delete(outputFile);
+        }
 
         var args = new[]
         {
-            "generate",
-            "--algorithm=dfs",
-            "--width=11",
-            "--height=11",
-            $"--output={outputFile}"
-        };
+        "generate",
+        "--algorithm=dfs",
+        "--width=11",
+        "--height=11",
+        $"--output={outputFile}"
+    };
 
-        var output = RunWithCapture(() => CommandHandler.Handle(args));
+        CommandHandler.Handle(args);
 
         Assert.True(File.Exists(outputFile), "Файл лабиринта должен быть создан");
-        Assert.Contains("Maze saved", output, StringComparison.OrdinalIgnoreCase);
 
         var text = File.ReadAllText(outputFile);
         Assert.Contains("#", text);
@@ -64,7 +66,8 @@ public class CliTests
         var mazeFile = Path.Combine(Path.GetTempPath(), "maze_input.txt");
         var resultFile = Path.Combine(Path.GetTempPath(), "maze_solved.txt");
 
-        string mazeText = """
+        string mazeText = 
+        """
         #######
         #     #
         # ### #
@@ -86,13 +89,15 @@ public class CliTests
             $"--output={resultFile}"
         };
 
-        var output = RunWithCapture(() => CommandHandler.Handle(args));
+        CommandHandler.Handle(args);
 
         Assert.True(File.Exists(resultFile), "Файл решения должен быть создан");
-        Assert.Contains("Solution saved", output, StringComparison.OrdinalIgnoreCase);
 
         var solved = File.ReadAllText(resultFile);
         Assert.Contains(".", solved);
+
+        File.Delete(mazeFile);
+        File.Delete(resultFile);
     }
 
     [Fact]
