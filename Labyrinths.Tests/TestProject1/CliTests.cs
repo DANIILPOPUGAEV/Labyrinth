@@ -66,7 +66,7 @@ public class CliTests
         var mazeFile = Path.Combine(Path.GetTempPath(), "maze_input.txt");
         var resultFile = Path.Combine(Path.GetTempPath(), "maze_solved.txt");
 
-        string mazeText = 
+        string mazeText =
         """
         #######
         #     #
