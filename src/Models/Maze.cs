@@ -82,8 +82,8 @@ public class Maze
 
         var lines = Render(unicode);
 
-        var utf8NoBom = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
-        File.WriteAllLines(path, Render(unicode), Encoding.UTF8);
+        var utf8NoBom = new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        File.WriteAllLines(path, lines, utf8NoBom);
     }
 
     /// <summary>Загружает лабиринт из текстового файла.</summary>
