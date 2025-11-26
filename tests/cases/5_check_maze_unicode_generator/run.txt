@@ -1,0 +1,1 @@
+dotnet run --project ./src/Labyrinths.csproj -- generate -a dfs -h 1 -w 1 -o /tests/tmp/5_check_maze_unicode_generator.txt -u

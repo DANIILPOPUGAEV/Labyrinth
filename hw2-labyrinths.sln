@@ -5,18 +5,27 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinths", "src\Labyrinths.csproj", "{2D80D1B2-1F43-4B0A-9FBD-C122082016D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinths.Tests", "Labyrinths.Tests\TestProject1\Labyrinths.Tests.csproj", "{C175FDDF-1B82-4F26-89AC-6E5DAF25CA4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2D80D1B2-1F43-4B0A-9FBD-C122082016D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D80D1B2-1F43-4B0A-9FBD-C122082016D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D80D1B2-1F43-4B0A-9FBD-C122082016D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D80D1B2-1F43-4B0A-9FBD-C122082016D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C175FDDF-1B82-4F26-89AC-6E5DAF25CA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C175FDDF-1B82-4F26-89AC-6E5DAF25CA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C175FDDF-1B82-4F26-89AC-6E5DAF25CA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C175FDDF-1B82-4F26-89AC-6E5DAF25CA4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0782D41-9212-4108-A81D-CC2BC91F930A}
 	EndGlobalSection
 EndGlobal
